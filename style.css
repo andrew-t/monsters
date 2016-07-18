@@ -1,0 +1,66 @@
+body {
+	margin: 0;
+	padding: 0;
+	background: black;
+}
+
+video {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 0;
+}
+
+#ball {
+	background: red;
+	position: absolute;
+	border-radius: 100vmax;
+	width: 30vmin;
+	height: 30vmin;
+	box-shadow: -7vmin -7vmin 15vmin black inset;
+	margin: 0;
+	padding: 0;
+}
+#monster {
+	background: blue;
+	position: absolute;
+	border-radius: 100vmax;
+	width: 500vmin;
+	height: 750vmin;
+	margin: 0;
+	padding: 0;
+}
+#monster-label {
+	font-size: 5vw;
+	padding: 5vw;
+	background: rgba(0, 0, 0, 0.5);
+	color: white;
+	font-family: -apple-system, Helvetica, Arial, sans-serif;
+	font-weight: lighter;
+	position: absolute;
+	border-radius: 100vmax;
+}
+#popup {
+	position: absolute;
+	left: 5vmin;
+	right: 5vmin;
+	top: 5vmin;
+	bottom: 5vmin;
+	background: white;
+	box-shadow: 0 0 5vw black;
+	z-index: 1000000;
+}
+#popup:not(.hidden) + #popup-shield {
+	background: rgba(0, 0, 0, 0.5);
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+
+.hidden {
+	display: none;
+}
