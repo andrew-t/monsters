@@ -2,6 +2,17 @@
 // * http://www.html5rocks.com/en/tutorials/device/orientation/
 // * https://developer.mozilla.org/en-US/docs/Web/API/Detecting_device_orientation
 
+var monsterBearing = 0,
+	monsterDistance = 100,
+	monsterHeight = 0,
+	ballStartDistance = 0,
+	ballStartHeight = -2.5,
+	ballDistantLimit = 150,
+	throwPower = 10,
+	ballDrag = 0.95,
+	ballElasticity = .75,
+	gravity = -.8;
+
 document.addEventListener('DOMContentLoaded', function(e) {
 
 	var orientation = {
@@ -9,13 +20,10 @@ document.addEventListener('DOMContentLoaded', function(e) {
 			beta: 90, // angle from horizontal
 			gamma: 0 // horizontal rotation we can probably ignore?
 		},
-		monsterBearing = 0,
-		monsterDistance = 100,
-		monsterHeight = 0,
 		ballBearing = 0,
-		ballDistance = 0,
+		ballDistance = ballStartDistance,
+		ballHeight = ballStartHeight,
 		ballMoving = false,
-		ballHeight = -2.5,
 		ballYSpeed = 0,
 		ballZSpeed = 0,
 		floorHeight = -10,
@@ -36,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 					monsterBearing = e.alpha;
 				gotOrientationData = true;
 			}
-			console.log(orientation);
+			// console.log(orientation);
 		});
 
 	var lastTime = 0;
@@ -46,19 +54,50 @@ document.addEventListener('DOMContentLoaded', function(e) {
 		if (interval > 100)
 			interval = 100;
 		lastTime = time;
+		interval /= 100;
 
 		pos3d(monster, monsterBearing, monsterDistance, monsterHeight, true);
 		pos3d(label, monsterBearing, monsterDistance, monsterHeight + 1, false);
 		pos3d(ball, ballBearing, ballDistance, ballHeight, true);
 
 		// TODO - position & scale ball if it's flying
+		if (ballMoving) {
+			ballDistance += ballZSpeed * interval;
+			ballHeight += ballYSpeed * interval;
+			ballZSpeed *= Math.pow(ballDrag, interval);
+			ballYSpeed = ballYSpeed * Math.pow(ballDrag, interval) + gravity * interval;
+			if (ballDistance > ballDistantLimit) {
+				ballDistance = ballStartDistance;
+				ballHeight = ballStartHeight;
+				ballMoving = false;
+				ballYSpeed = 0;
+				ballZSpeed = 0;
+			}
+			if (ballHeight < floorHeight && ballYSpeed < 0) {
+				ballYSpeed = ballYSpeed * -ballElasticity;
+				ballHeight = floorHeight;
+			}
+			// console.log('d = ' + ballDistance, 'h = ' + ballHeight);
+		} else {
+			ballBearing = orientation.alpha;
+		}
 
-		// requestAnimationFrame(update);
+		requestAnimationFrame(update);
 	}
 
 	// TODO - choose a monster to capture
 
 	// TODO - detect touches and throw the ball
+	ball.addEventListener('click', function (e) {
+		console.log('throw requested')
+		if (!ballMoving) {
+			console.log('throw granted')
+			ballYSpeed = 4;
+			ballZSpeed = throwPower;
+			ballBearing = orientation.alpha;
+			ballMoving = true;
+		}
+	});
 
 	// TODO - local storage so we know what you've seen before?
 
