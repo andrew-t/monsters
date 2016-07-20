@@ -4,14 +4,15 @@
 
 var monsterBearing = 0,
 	monsterDistance = 100,
-	monsterHeight = 0,
+	monsterHeight = -20,
 	ballStartDistance = 0,
-	ballStartHeight = -2.5,
+	ballStartHeight = -5,
 	ballDistantLimit = 150,
+	floorHeight = -30,
 	throwPower = 10,
 	ballDrag = 0.95,
 	ballElasticity = .75,
-	gravity = -.8;
+	gravity = -.3;
 
 document.addEventListener('DOMContentLoaded', function(e) {
 
@@ -26,18 +27,21 @@ document.addEventListener('DOMContentLoaded', function(e) {
 		ballMoving = false,
 		ballYSpeed = 0,
 		ballZSpeed = 0,
-		floorHeight = -10,
 		gotOrientationData = false,
 		monster = document.getElementById('monster'),
 		label = document.getElementById('monster-label'),
 		ball = document.getElementById('ball');
 
-	if (window.DeviceOrientationEvent)
+	if (window.DeviceOrientationEvent) {
+		var orientationHistory = [],
+			orientationHistoryPointer = 0;
 		window.addEventListener('deviceorientation', function(e) {
+			var snapshot = {}, variable;
 			// Things that aren't supported are null:
-			for (var variable in orientation)
-				if (e[variable] !== null)
-					orientation[variable] = e[variable];
+			for (variable in orientation)
+				snapshot[variable] = (e[variable] !== null) 
+					? e[variable]
+					: orientation[varoable];
 			// Put the monster in front of you when you open the page
 			if (!gotOrientationData) {
 				if (e.alpha !== null)
@@ -45,7 +49,21 @@ document.addEventListener('DOMContentLoaded', function(e) {
 				gotOrientationData = true;
 			}
 			// console.log(orientation);
+			orientationHistory[orientationHistoryPointer] = snapshot;
+			if (++orientationHistoryPointer >= 8)
+				orientationHistoryPointer = 0;
+			var count = 0;
+			orientation = { alpha: 0, beta: 0, gamma: 0 };
+			orientationHistory.forEach(function(o) {
+				// forEach skips undefined values
+				++count;
+				for (variable in orientation)
+					orientation[variable] += o[variable];
+			});
+			for (variable in orientation)
+				orientation[variable] /= count;
 		});
+	}
 
 	var lastTime = 0;
 	requestAnimationFrame(update);
@@ -78,6 +96,17 @@ document.addEventListener('DOMContentLoaded', function(e) {
 				ballHeight = floorHeight;
 			}
 			// console.log('d = ' + ballDistance, 'h = ' + ballHeight);
+
+			if (ballDistance >= monsterDistance) {
+				var error = Math.abs(ballBearing - monsterBearing);
+				// 8.5º is about where you start to miss:
+				if (error < 8.5 || error > 361.5) {
+					console.log('You caught it!');
+					ball.classList.add('hidden');
+					monster.classList.add('hidden');
+					// todo - pop something up
+				}
+			}
 		} else {
 			ballBearing = orientation.alpha;
 		}
@@ -87,15 +116,18 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
 	// TODO - choose a monster to capture
 
-	// TODO - detect touches and throw the ball
+	// detect touches and throw the ball
+	// TODO - require some kind of skill? maybe?
 	ball.addEventListener('click', function (e) {
 		console.log('throw requested')
 		if (!ballMoving) {
 			console.log('throw granted')
-			ballYSpeed = 4;
+			ballYSpeed = 1;
 			ballZSpeed = throwPower;
 			ballBearing = orientation.alpha;
 			ballMoving = true;
+			console.log('ball bearing = ' + ballBearing);
+			console.log('monster bearing = ' + monsterBearing);
 		}
 	});
 
@@ -111,10 +143,20 @@ document.addEventListener('DOMContentLoaded', function(e) {
 		if (diff < -180) diff += 360;
 		else if (diff > 180) diff -= 360;
 		layer.style.transform = 'scale(' + scale + ')';
+
+		var bearingComponent = (diff * -30 * coordScale);
 		layer.style.left = 'calc(' +
-			(diff * -30 * coordScale) + 'vw  - (' + layer.clientWidth + 'px / 2) + 50vw)';
+			bearingComponent + 'vw  - (' + layer.clientWidth + 'px / 2) + 50vw)';
+		// console.log('x - bearing: ', bearingComponent);
+
+		var heightComponent = (-height * coordScale * 30),
+			betaComponent = Math.tan((orientation.beta - 90) * Math.PI / 180) * 100;
 		layer.style.top = 'calc(' +
-			(-height * coordScale * 30) + 'vh - (' + layer.clientHeight + 'px / 2) + ' + Math.tan(orientation.beta * Math.PI / 180) * 1 + 'vh + 50vh)';
+			heightComponent + 'vh - (' + layer.clientHeight + 'px / 2) + ' +
+			betaComponent + 'vh + 50vh)';
+		// console.log('y - height: ', heightComponent);
+		// console.log('y - beta: ', betaComponent);
+
 		if (z < 1)
 			z = 1;
 		layer.style.zIndex = z;

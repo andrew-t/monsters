@@ -29,8 +29,8 @@ video {
 	background: red;
 	position: absolute;
 	border-radius: 100vmax;
-	width: 30vmin;
-	height: 30vmin;
+	width: 60vmin;
+	height: 60vmin;
 	box-shadow: -7vmin -7vmin 15vmin black inset;
 	margin: 0;
 	padding: 0;
