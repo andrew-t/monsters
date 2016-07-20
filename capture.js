@@ -23,7 +23,7 @@ window.addEventListener("DOMContentLoaded", function() {
 	if (MediaStreamTrack && MediaStreamTrack.getSources)
 		MediaStreamTrack.getSources(function(sources) {
 			console.log(sources);
-			var last = null;
+			var first = null, last = null;
 			for (var i = 0; i !== sources.length; ++i) {
 				var sourceInfo = sources[i];
 				var option = document.createElement('option');
@@ -32,11 +32,13 @@ window.addEventListener("DOMContentLoaded", function() {
 					option.text = sourceInfo.label || 'camera ' + (dropdown.length + 1);
 					dropdown.appendChild(option);
 					last = dropdown.value;
+					if (!first) first = dropdown.value;
 				} else
 					console.log('Don\'t care about this: ', sourceInfo);
 			}
 			if (last)
 				startCapture(last);
+
 			dropdown.addEventListener('change', function(e) {
 				console.log(dropdown.value);
 				startCapture(dropdown.value);
@@ -50,6 +52,7 @@ window.addEventListener("DOMContentLoaded", function() {
 });
 
 function startCapture(source) {
+	dropdown.value = source;
 	var opts = { video: source
 			? { optional: [{ sourceId: source }] }
 			: true

@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
 	var orientation = {
 			alpha: 0, // bearing from north OR position when page opened (in Safari)
-			beta: 90, // angle from horizontal
+			beta: 65, // angle from horizontal
 			gamma: 0 // horizontal rotation we can probably ignore?
 		},
 		ballBearing = 0,
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 			for (variable in orientation)
 				snapshot[variable] = (e[variable] !== null) 
 					? e[variable]
-					: orientation[varoable];
+					: orientation[variable];
 			// Put the monster in front of you when you open the page
 			if (!gotOrientationData) {
 				if (e.alpha !== null)
