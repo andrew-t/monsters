@@ -12,6 +12,7 @@ var monsterBearing = 0,
 	throwPower = 10,
 	ballDrag = 0.95,
 	ballElasticity = .75,
+	frameskip = 3,
 	gravity = -.3;
 
 document.addEventListener('DOMContentLoaded', function(e) {
@@ -65,9 +66,12 @@ document.addEventListener('DOMContentLoaded', function(e) {
 		});
 	}
 
-	var lastTime = 0;
+	var lastTime = 0, frameskipPointer = 0;
 	requestAnimationFrame(update);
 	function update(time) {
+		if (frameskipPointer++ >= frameskip)
+			return requestAnimationFrame(update);
+		
 		var interval = time - lastTime;
 		if (interval > 100)
 			interval = 100;
