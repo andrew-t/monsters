@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 		layer.style.left = 'calc(' +
 			(diff * 30 * coordScale) + 'vw  - (' + layer.clientWidth + 'px / 2) + 50vw)';
 		layer.style.top = 'calc(' +
-			(-height * coordScale * 30) + 'vh - (' + layer.clientHeight + 'px / 2)  + 50vh)';
+			(-height * coordScale * 30) + 'vh - (' + layer.clientHeight + 'px / 2) + ' + Math.tan(orientation.beta) * 10 + 'vh + 50vh)';
 		if (z < 1)
 			z = 1;
 		layer.style.zIndex = z;
