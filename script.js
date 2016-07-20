@@ -69,8 +69,10 @@ document.addEventListener('DOMContentLoaded', function(e) {
 	var lastTime = 0, frameskipPointer = 0;
 	requestAnimationFrame(update);
 	function update(time) {
-		if (frameskipPointer++ >= frameskip)
+		if (frameskipPointer++ >= frameskip) {
+			frameskipPointer = 0;
 			return requestAnimationFrame(update);
+		}
 
 		var interval = time - lastTime;
 		if (interval > 100)
@@ -79,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 		interval /= 100;
 
 		pos3d(monster, monsterBearing, monsterDistance, monsterHeight, true);
-		pos3d(label, monsterBearing, monsterDistance, monsterHeight + 1, false);
+		pos3d(label, monsterBearing, monsterDistance, monsterHeight + 15, false);
 		pos3d(ball, ballBearing, ballDistance, ballHeight, true);
 
 		// TODO - position & scale ball if it's flying
@@ -108,6 +110,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 					console.log('You caught it!');
 					ball.classList.add('hidden');
 					monster.classList.add('hidden');
+					label.classList.add('hidden');
 					// todo - pop something up
 				}
 			}
