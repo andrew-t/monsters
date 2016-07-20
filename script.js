@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 	function update(time) {
 		if (frameskipPointer++ >= frameskip)
 			return requestAnimationFrame(update);
-		
+
 		var interval = time - lastTime;
 		if (interval > 100)
 			interval = 100;
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 	// TODO - monster-dex
 
 	function pos3d(layer, bearing, distance, height, doScale) {
-		var coordScale = doScale ? 10 / (distance + 20) : 1,
+		var coordScale = 10 / (distance + 20),
 			scale = doScale ? coordScale : 1,
 			diff = bearing - orientation.alpha,
 			z = Math.round(10000 - distance);

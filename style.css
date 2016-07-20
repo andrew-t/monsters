@@ -25,6 +25,13 @@ video {
 	z-index: 0;
 }
 
+#camera-select {
+	position: absolute;
+	left: 1vmin;
+	top: 1vmin;
+	z-index: 999000;
+}
+
 #ball {
 	background: red;
 	position: absolute;
