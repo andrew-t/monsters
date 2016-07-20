@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 		else if (diff > 180) diff -= 360;
 		layer.style.transform = 'scale(' + scale + ')';
 		layer.style.left = 'calc(' +
-			(diff * 30 * coordScale) + 'vw  - (' + layer.clientWidth + 'px / 2) + 50vw)';
+			(diff * -30 * coordScale) + 'vw  - (' + layer.clientWidth + 'px / 2) + 50vw)';
 		layer.style.top = 'calc(' +
 			(-height * coordScale * 30) + 'vh - (' + layer.clientHeight + 'px / 2) + ' + Math.tan(orientation.beta) * 10 + 'vh + 50vh)';
 		if (z < 1)
