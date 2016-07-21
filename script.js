@@ -12,7 +12,7 @@ var monsterBearing = 0,
 	throwPower = 10,
 	ballDrag = 0.95,
 	ballElasticity = .75,
-	frameskip = 3,
+	frameskip = 2,
 	gravity = -.3;
 
 window.xAxis = function (orientation) {
