@@ -16,7 +16,7 @@ var monsterBearing = 0,
 	gravity = -.3;
 
 window.xAxis = function (orientation) {
-	return orientation.gamma;
+	return orientation.alpha;
 };
 
 document.addEventListener('DOMContentLoaded', function(e) {
