@@ -15,7 +15,9 @@ var monsterBearing = 0,
 	frameskip = 3,
 	gravity = -.3;
 
-window.xAxis = 'gamma';
+window.xAxis = function (orientation) {
+	return orientation.gamma;
+};
 
 document.addEventListener('DOMContentLoaded', function(e) {
 
@@ -57,8 +59,8 @@ document.addEventListener('DOMContentLoaded', function(e) {
 					: orientation[variable];
 			// Put the monster in front of you when you open the page
 			if (!gotOrientationData) {
-				if (e[xAxis] !== null)
-					monsterBearing = e[xAxis];
+				if (xAxis(e) !== null)
+					monsterBearing = xAxis(e);
 				gotOrientationData = true;
 			}
 			// console.log(orientation);
@@ -150,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 				}
 			}
 		} else
-			ballBearing = orientation[xAxis];
+			ballBearing = xAxis(orientation);
 
 		requestAnimationFrame(update);
 	}
@@ -163,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 			console.log('throw granted')
 			ballYSpeed = 1;
 			ballZSpeed = throwPower;
-			ballBearing = orientation[xAxis];
+			ballBearing = xAxis(orientation);
 			ballMoving = true;
 			console.log('ball bearing = ' + ballBearing);
 			console.log('monster bearing = ' + monsterBearing);
@@ -177,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 	function pos3d(layer, bearing, distance, height, doScale) {
 		var coordScale = 10 / (distance + 20),
 			scale = doScale ? coordScale : 1,
-			diff = bearing - orientation[xAxis],
+			diff = bearing - xAxis(orientation),
 			z = Math.round(10000 - distance);
 		if (diff < -180) diff += 360;
 		else if (diff > 180) diff -= 360;
