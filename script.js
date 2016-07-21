@@ -202,13 +202,30 @@ document.addEventListener('DOMContentLoaded', function(e) {
 	function popupMonster(monster) {
 		var popup = document.getElementById('gotcha'),
 			evolveButton = document.getElementById('evolve'),
-			doneButton = document.getElementById('done');
+			doneButton = document.getElementById('done'),
+			evolution = document.getElementById('evolution'),
+			evoList = document.getElementById('evo-list');
 		document.getElementById('gotcha-name').innerText = monster.name;
 		document.getElementById('gotcha-image').setAttribute('src', monster.imageUrl);
 		if (monster.evolution)
 			evolveButton.classList.remove('hidden');
 		else
 			evolveButton.classList.add('hidden');
+		if (monster.evolvesFrom) {
+			evoList.innerHtml = '';
+			var chain = [];
+			for (var parent = monster.evolvesFrom;
+					parent;
+					parent = parent.evolvesFrom)
+				chain.unshift(parent);
+			chain.forEach(function(monster) {
+				var li = document.createElement('li');
+				li.innerText = monster.name;
+				li.style.backgroundImage = "url('" + monster.imageUrl + "')";
+				evoList.appendChild(li);
+			});
+			evolution.classList.remove('hidden');
+		} else evolution.classList.add('hidden');
 		setTimeout(function() {
 			popup.scrollTop = 0;
 		});

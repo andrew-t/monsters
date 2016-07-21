@@ -7,7 +7,7 @@ window.monsterdex = {
 	},
 	"Test 2": {
 		type: "example",
-		rarity: 1
+		rarity: 2
 	}
 
 	/*Bojo: {
@@ -55,9 +55,7 @@ for (var name in monsterdex) {
 }
 var totalCommonness = 0;
 window.monsterArray.forEach(function(monster) {
-	// this can be removed when we can see what things evolved from
-	monster.commonness = 
-		monster.evolvesFrom ? 0 : 1 / monster.rarity;
+	monster.commonness = 1 / monster.rarity;
 	totalCommonness += monster.commonness;
 });
 window.monsterArray.forEach(function(monster) {
