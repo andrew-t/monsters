@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 		else
 			evolveButton.classList.add('hidden');
 		if (monster.evolvesFrom) {
-			for (var i = 0; i < evoList.childNodes; ++i)
+			for (var i = evoList.childNodes.length - 1; i >= 0; --i)
 				evoList.removeChild(evoList.childNodes[i]);
 			evoList.innerHtml = '';
 			var chain = [];
