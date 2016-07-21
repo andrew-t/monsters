@@ -44,7 +44,7 @@ for (var name in monsterdex) {
 	monster.name = name;
 	monster.commonness = 1 / monster.rarity;
 	totalCommonness += monster.commonness;
-	monster.imageUrl = '/monster-images/' + name.toLowerCase().replace(' ', '-') + '.png';
+	monster.imageUrl = 'monster-images/' + name.toLowerCase().replace(' ', '-') + '.png';
 	if (monster.evolution) {
 		monster.evolution = monsterdex[monster.evolution];
 		monster.evolution.evolvesFrom = monster;
