@@ -2,6 +2,11 @@ window.monsterdex = {
 
 	Test: {
 		type: "example",
+		evolution: "Test 2",
+		rarity: 1
+	},
+	"Test 2": {
+		type: "example",
 		rarity: 1
 	}
 
@@ -38,12 +43,9 @@ window.monsterdex = {
 
 // flesh it out a tad
 window.monsterArray = [];
-var totalCommonness = 0;
 for (var name in monsterdex) {
 	var monster = monsterdex[name];
 	monster.name = name;
-	monster.commonness = 1 / monster.rarity;
-	totalCommonness += monster.commonness;
 	monster.imageUrl = 'monster-images/' + name.toLowerCase().replace(' ', '-') + '.png';
 	if (monster.evolution) {
 		monster.evolution = monsterdex[monster.evolution];
@@ -51,6 +53,13 @@ for (var name in monsterdex) {
 	}
 	monsterArray.push(monster);
 }
+var totalCommonness = 0;
+window.monsterArray.forEach(function(monster) {
+	// this can be removed when we can see what things evolved from
+	monster.commonness = 
+		monster.evolvesFrom ? 0 : 1 / monster.rarity;
+	totalCommonness += monster.commonness;
+});
 window.monsterArray.forEach(function(monster) {
 	monster.commonness /= totalCommonness;
 });

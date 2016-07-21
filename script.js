@@ -23,17 +23,25 @@ document.addEventListener('DOMContentLoaded', function(e) {
 			gamma: 0 // horizontal rotation we can probably ignore?
 		},
 		ballBearing = 0,
-		ballDistance = ballStartDistance,
-		ballHeight = ballStartHeight,
-		ballMoving = false,
-		ballYSpeed = 0,
-		ballZSpeed = 0,
+		ballDistance,
+		ballHeight,
+		ballMoving,
+		ballYSpeed,
+		ballZSpeed,
 		whichMonster,
 		inGame = true;
 		gotOrientationData = false,
 		monster = document.getElementById('monster'),
 		label = document.getElementById('monster-label'),
 		ball = document.getElementById('ball');
+
+	function resetBall() {
+		ballDistance = ballStartDistance;
+		ballHeight = ballStartHeight;
+		ballMoving = false;
+		ballYSpeed = 0;
+		ballZSpeed = 0;
+	}
 
 	if (window.DeviceOrientationEvent) {
 		var orientationHistory = [],
@@ -72,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 		var i = Math.random();
 		whichMonster = null;
 		for (var j = 0; !whichMonster; ++j) {
-			if (i -= window.monsterArray[j] < 0)
+			if ((i -= window.monsterArray[j].commonness) < 0)
 				whichMonster = window.monsterArray[j];
 			if (j >= window.monsterArray.length)
 				// this shouldn't happen but why risk it?
@@ -85,6 +93,8 @@ document.addEventListener('DOMContentLoaded', function(e) {
 			Math.floor(Math.random() * 100 + 10) + 'CP';
 		monster.style.backgroundImage =
 			"url('" + whichMonster.imageUrl + "')";
+		inGame = true;
+		resetBall();
 	}
 	chanceEncounter();
 
@@ -96,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 			return requestAnimationFrame(update);
 		}
 		if (!inGame)
-			return;
+			return requestAnimationFrame(update);
 
 		var interval = time - lastTime;
 		if (interval > 100)
@@ -114,13 +124,8 @@ document.addEventListener('DOMContentLoaded', function(e) {
 			ballHeight += ballYSpeed * interval;
 			ballZSpeed *= Math.pow(ballDrag, interval);
 			ballYSpeed = ballYSpeed * Math.pow(ballDrag, interval) + gravity * interval;
-			if (ballDistance > ballDistantLimit) {
-				ballDistance = ballStartDistance;
-				ballHeight = ballStartHeight;
-				ballMoving = false;
-				ballYSpeed = 0;
-				ballZSpeed = 0;
-			}
+			if (ballDistance > ballDistantLimit)
+				resetBall();
 			if (ballHeight < floorHeight && ballYSpeed < 0) {
 				ballYSpeed = ballYSpeed * -ballElasticity;
 				ballHeight = floorHeight;
@@ -137,16 +142,16 @@ document.addEventListener('DOMContentLoaded', function(e) {
 					label.classList.add('hidden');
 					// todo - pop something up
 					inGame = false;
+					setTimeout(function() {
+						popupMonster(whichMonster);	
+					}, 750);
 				}
 			}
-		} else {
+		} else
 			ballBearing = orientation.alpha;
-		}
 
 		requestAnimationFrame(update);
 	}
-
-	// TODO - choose a monster to capture
 
 	// detect touches and throw the ball
 	// TODO - require some kind of skill? maybe?
@@ -192,6 +197,38 @@ document.addEventListener('DOMContentLoaded', function(e) {
 		if (z < 1)
 			z = 1;
 		layer.style.zIndex = z;
+	}
+
+	function popupMonster(monster) {
+		var popup = document.getElementById('gotcha'),
+			evolveButton = document.getElementById('evolve'),
+			doneButton = document.getElementById('done');
+		document.getElementById('gotcha-name').innerText = monster.name;
+		document.getElementById('gotcha-image').setAttribute('src', monster.imageUrl);
+		if (monster.evolution)
+			evolveButton.classList.remove('hidden');
+		else
+			evolveButton.classList.add('hidden');
+		setTimeout(function() {
+			popup.scrollTop = 0;
+		});
+		popup.classList.remove('hidden');
+
+		evolveButton.addEventListener('click', evolve);
+		doneButton.addEventListener('click', done);
+		function evolve() {
+			close();
+			popupMonster(monster.evolution);
+		}
+		function done() {
+			close();
+			chanceEncounter();
+		}
+		function close() {
+			evolveButton.removeEventListener('click', evolve);
+			doneButton.removeEventListener('click', done);
+			popup.classList.add('hidden');
+		}
 	}
 
 });

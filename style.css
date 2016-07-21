@@ -3,6 +3,7 @@ body {
 	padding: 0;
 	background: black;
 	overflow: hidden;
+	font-family: Helvetica, Arial, sans, -sans-serif;
 }
 
 #arena {
@@ -70,6 +71,8 @@ video {
 	background: white;
 	box-shadow: 0 0 5vw black;
 	z-index: 1000000;
+	text-align: center;
+	overflow: auto;
 }
 
 .hidden, #popup-shield {
@@ -83,4 +86,23 @@ video {
 	right: 0;
 	top: 0;
 	bottom: 0;
+}
+
+h1, button {
+	font-size: 10vmin;
+}
+
+img {
+	width: 80%;
+}
+
+button {
+	display: inline-block;
+	color: white;
+	background: #7b7;
+	border-radius: 100vmax;
+	padding: 5vmin 15vmin;
+	cursor: pointer;
+	margin: 5vmin;
+	text-transform: uppercase;
 }
