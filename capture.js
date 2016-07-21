@@ -31,8 +31,8 @@ window.addEventListener("DOMContentLoaded", function() {
 				if (sourceInfo.kind === 'video') {
 					option.text = sourceInfo.label || 'camera ' + (dropdown.length + 1);
 					dropdown.appendChild(option);
-					last = dropdown.value;
-					if (!first) first = dropdown.value;
+					last = sourceInfo.id;
+					if (!first) first = sourceInfo.id;
 				} else
 					console.log('Don\'t care about this: ', sourceInfo);
 			}

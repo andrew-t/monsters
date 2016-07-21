@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', function(e) {
 		ballMoving = false,
 		ballYSpeed = 0,
 		ballZSpeed = 0,
+		whichMonster,
+		inGame = true;
 		gotOrientationData = false,
 		monster = document.getElementById('monster'),
 		label = document.getElementById('monster-label'),
@@ -66,6 +68,26 @@ document.addEventListener('DOMContentLoaded', function(e) {
 		});
 	}
 
+	function chanceEncounter() {
+		var i = Math.random();
+		whichMonster = null;
+		for (var j = 0; !whichMonster; ++j) {
+			if (i -= window.monsterArray[j] < 0)
+				whichMonster = window.monsterArray[j];
+			if (j >= window.monsterArray.length)
+				// this shouldn't happen but why risk it?
+				j = 0;
+		}
+		monster.classList.remove('hidden');
+		label.classList.remove('hidden');
+		ball.classList.remove('hidden');
+		label.innerText = whichMonster.name + ' / ' +
+			Math.floor(Math.random() * 100 + 10) + 'CP';
+		monster.style.backgroundImage =
+			"url('" + whichMonster.imageUrl + "')";
+	}
+	chanceEncounter();
+
 	var lastTime = 0, frameskipPointer = 0;
 	requestAnimationFrame(update);
 	function update(time) {
@@ -73,6 +95,8 @@ document.addEventListener('DOMContentLoaded', function(e) {
 			frameskipPointer = 0;
 			return requestAnimationFrame(update);
 		}
+		if (!inGame)
+			return;
 
 		var interval = time - lastTime;
 		if (interval > 100)
@@ -112,6 +136,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 					monster.classList.add('hidden');
 					label.classList.add('hidden');
 					// todo - pop something up
+					inGame = false;
 				}
 			}
 		} else {

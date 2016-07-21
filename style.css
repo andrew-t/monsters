@@ -43,9 +43,9 @@ video {
 	padding: 0;
 }
 #monster {
-	background: blue;
 	position: absolute;
-	border-radius: 100vmax;
+	background-size: contain;
+	background-repeat: no-repeat;
 	width: 500vmin;
 	height: 750vmin;
 	margin: 0;
@@ -61,7 +61,7 @@ video {
 	position: absolute;
 	border-radius: 100vmax;
 }
-#popup {
+.popup {
 	position: absolute;
 	left: 5vmin;
 	right: 5vmin;
@@ -71,15 +71,16 @@ video {
 	box-shadow: 0 0 5vw black;
 	z-index: 1000000;
 }
-#popup:not(.hidden) + #popup-shield {
+
+.hidden, #popup-shield {
+	display: none;
+}
+
+.popup:not(.hidden) + #popup-shield {
 	background: rgba(0, 0, 0, 0.5);
 	position: absolute;
 	left: 0;
 	right: 0;
 	top: 0;
 	bottom: 0;
-}
-
-.hidden {
-	display: none;
 }
