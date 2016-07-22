@@ -4,10 +4,13 @@
   "description": "A wholly original AR monster-catching game",
   "background_color": "red",
   "theme_color": "red",
-  "start_url": "/monsters",
+  "start_url": "http://github.andrewt.net/monsters",
   "scope": "/monsters/",
   "display": "standalone",
   "orientation": "portrait",
+  "permissions": [
+    "videoCapture"
+  ],
   "icons": [{
     "src": "icons/48.png",
     "sizes": "48x48",
