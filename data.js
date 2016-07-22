@@ -36,7 +36,7 @@ window.monsterdex = {
 		rarity: 1
 	},
 	Snowman: {
-		evolution: "Snowman",
+		evolution: "Snowmandelbrot",
 		type: "Cold",
 		rarity: 2
 	},
