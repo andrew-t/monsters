@@ -210,6 +210,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 			evolution = document.getElementById('evolution'),
 			evoList = document.getElementById('evo-list');
 		document.getElementById('gotcha-name').innerText = monster.name;
+		document.getElementById('gotcha-type').innerText = monster.type;
 		document.getElementById('gotcha-image').setAttribute('src', monster.imageUrl);
 		if (monster.evolution)
 			evolveButton.classList.remove('hidden');
