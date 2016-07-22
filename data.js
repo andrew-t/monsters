@@ -43,7 +43,7 @@ window.monsterdex = {
 	Snowmandelbrot: {
 		type: "Cold",
 		rarity: 4
-	}
+	},
 
 	Bojo: {
 		evolution: "Trumpo",
