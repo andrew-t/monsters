@@ -20,6 +20,25 @@ window.addEventListener("DOMContentLoaded", function() {
 
 	window.addEventListener('resize', sizeThings);
 
+	if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+		// this is the BEST way to capture video.
+		dropdown.classList.add('hidden');
+		// https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+		navigator.mediaDevices.getUserMedia({
+				// we require the rear camera.
+				video: { facingMode: { exact: 'environment' } }
+			})
+			.then(function(mediaStream) {
+				if (window.URL && window.URL.createObjectURL)
+					video.src = window.webkitURL.createObjectURL(mediaStream);
+				else if (window.webkitURL && window.URL.createObjectURL)
+					video.src = window.URL.createObjectURL(mediaStream);
+			})
+			.catch(function(error) {
+				console.log("Error getting video sources: ", error);
+			});
+	}
+
 	if (MediaStreamTrack && MediaStreamTrack.getSources)
 		MediaStreamTrack.getSources(function(sources) {
 			console.log(sources);
