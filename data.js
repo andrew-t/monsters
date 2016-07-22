@@ -51,7 +51,7 @@ window.monsterdex = {
 		rarity: 1
 	},
 	Trumpo: {
-		evolution: "Baybo",
+		//evolution: "Baybo",
 		type: "Batshit/Racist",
 		rarity: 3
 	},
