@@ -61,6 +61,8 @@ video {
 	font-weight: lighter;
 	position: absolute;
 	border-radius: 100vmax;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .popup {
 	position: absolute;
