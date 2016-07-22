@@ -8,9 +8,44 @@ window.monsterdex = {
 	"Test 2": {
 		type: "example",
 		rarity: 2
+	},
+
+	Hydrant: {
+		type: "Cold",
+		rarity: 1
+	},
+
+	Garlick: {
+		type: "Vegetable/Robot",
+		evolution: "Darlick",
+		rarity: 1
+	},
+	Darlick: {
+		type: "Vegetable/Robot",
+		rarity: 2
+	},
+
+	Man: {
+		type: "Normil",
+		rarity: 2
+	},
+
+	Snow: {
+		evolution: "Snowman",
+		type: "Cold",
+		rarity: 1
+	},
+	Snowman: {
+		evolution: "Snowman",
+		type: "Cold",
+		rarity: 2
+	},
+	Snowmandelbrot: {
+		type: "Cold",
+		rarity: 4
 	}
 
-	/*Bojo: {
+	Bojo: {
 		evolution: "Trumpo",
 		type: "Batshit/Racist",
 		rarity: 1
@@ -20,7 +55,7 @@ window.monsterdex = {
 		type: "Batshit/Racist",
 		rarity: 3
 	},
-	Baybo: {
+	/*Baybo: {
 		type: "Batshit/Racist",
 		rarity: 8
 	},

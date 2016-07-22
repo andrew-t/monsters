@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 		interval /= 100;
 
 		pos3d(monster, monsterBearing, monsterDistance, monsterHeight, true);
-		pos3d(label, monsterBearing, monsterDistance, monsterHeight + 15, false);
+		pos3d(label, monsterBearing, monsterDistance, monsterHeight + 10, false);
 		pos3d(ball, ballBearing, ballDistance, ballHeight, true);
 
 		// TODO - position & scale ball if it's flying
