@@ -9,6 +9,8 @@ There is a monster in front of you. Aim by angling your phone toward it; tap the
 ### Video Capture
 The AR component uses the video-capture API, which is only available over HTTPS. [Github Pages does offer HTTPS, but not for custom domains](https://help.github.com/articles/securing-your-github-pages-site-with-https/), so my main [github.andrewt.net](https://github.andrewt.net) domain will not work. Therefore, I have created a Github org, [`andrew-tls`](https://github.com/andrew-tls) to host [`monsters`](https://andrew-tls.github.io/monsters).
 
+You can also get the video capture permission explicitly (including over HTTP), by installing the page as a progressive web app. You can do this using the "add to home screen" link in Chrome's menu.
+
 Further, Safari on iOS does not support this API and so iDevices cannot play `monsters`.
 
 Currently the video capture does not work in Firefox for Android.
