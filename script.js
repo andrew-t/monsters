@@ -21,6 +21,9 @@ window.xAxis = function (orientation) {
 
 document.addEventListener('DOMContentLoaded', function(e) {
 
+	if (document.location.host == 'github.andrewt.net')
+		document.location = 'https://andrew-tls.github.io/monsters';
+
 	var orientation = {
 			alpha: 0, // bearing from north OR position when page opened (in Safari)
 			beta: 65, // angle from horizontal
