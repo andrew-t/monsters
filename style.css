@@ -135,3 +135,20 @@ button {
 	margin: 2vmin 10vmin 2vmin 5vmin;
 	padding: 5vmin 15vmin 5vmin 0;
 }
+
+.fab {
+	border-radius: 100vmax;
+	right: 4vmin;
+	top: 4vmin;
+	border: 1vmin solid rgba(150, 200, 150, .5);
+	background: rgba(150, 200, 150, .8);
+	color: black;
+	font-size: 6vmin;
+	width: 8vmin;
+	height: 8vmin;
+	position: absolute;
+	text-decoration: none;
+	text-align: center;
+	line-height: 9vmin;
+	z-index: 999000;
+}
