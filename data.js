@@ -45,6 +45,16 @@ window.monsterdex = {
 		rarity: 4
 	},
 
+	Cucumbear: {
+		type: "Bear/Food",
+		rarity: 1,
+		evolution: "Camembear"
+	},
+	Camembear: {
+		type: "Bear/Food",
+		rarity: 3
+	},
+
 	Bojo: {
 		evolution: "Trumpo",
 		type: "Batshit/Racist",
