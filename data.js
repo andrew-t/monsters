@@ -15,6 +15,11 @@ window.monsterdex = {
 		rarity: 1
 	},
 
+	Jesus: {
+		type: "Mythical",
+		rarity: 2
+	},
+
 	Garlick: {
 		type: "Vegetable/Robot",
 		evolution: "Darlick",
