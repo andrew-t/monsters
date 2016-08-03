@@ -89,6 +89,26 @@ window.monsterdex = {
 		type: "Plant/Tory",
 		rarity: 5
 	}*/
+
+	Lemon: {
+		type: "Plant",
+		rarity: 1,
+		evolution: "Demon"
+	},
+	Demon: {
+		type: "Plant",
+		rarity: 4
+	},
+
+	Magikow: {
+		type: "Normil",
+		rarity: 1
+	},
+
+	Blob: {
+		type: "Blob",
+		rarity: 1
+	}
 };
 
 // flesh it out a tad
