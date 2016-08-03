@@ -15,11 +15,26 @@ var monsterBearing = 0,
 	frameskip = 2,
 	gravity = -.3;
 
+var warnings = [
+	'Do not walk off a cliff while catching monsters.',
+	'Do not stick sharp things in your eyes while catching monsters.',
+	'Do not fall down a well while catching monsters.',
+	'Do not get eaten by a monster while catching monsters.',
+	'Do not take candy from strangers while catching monsters.'
+];
+
 window.xAxis = function (orientation) {
 	return orientation.alpha;
 };
 
 document.addEventListener('DOMContentLoaded', function(e) {
+
+	// Display a bullshit warning.
+	document.getElementById('careful-now').appendChild(
+		document.createTextNode(warnings[~~(Math.random() * warnings.length)]));
+	document.getElementById('whatevs').addEventListener('click', function(e) {
+			document.getElementById('danger-will-robinson').classList.add('hidden');
+		});
 
 	if (document.location.host == 'github.andrewt.net')
 		document.location = 'https://andrew-tls.github.io/monsters';
