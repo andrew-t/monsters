@@ -15,6 +15,11 @@ window.monsterdex = {
 		rarity: 1
 	},
 
+	Jesus: {
+		type: "Mythical",
+		rarity: 2
+	},
+
 	Garlick: {
 		type: "Vegetable/Robot",
 		evolution: "Darlick",
@@ -43,6 +48,16 @@ window.monsterdex = {
 	Snowmandelbrot: {
 		type: "Cold",
 		rarity: 4
+	},
+
+	Cucumbear: {
+		type: "Bear/Food",
+		rarity: 1,
+		evolution: "Camembear"
+	},
+	Camembear: {
+		type: "Bear/Food",
+		rarity: 3
 	},
 
 	Bojo: {
